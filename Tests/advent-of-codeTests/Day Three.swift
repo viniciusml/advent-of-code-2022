@@ -42,6 +42,22 @@ extension Points {
     }
 }
 
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        return stride(from: 0, to: count, by: size).map {
+            Array(self[$0 ..< Swift.min($0 + size, count)])
+        }
+    }
+    
+    public subscript(safeIndex index: Int) -> Element? {
+        guard index >= 0, index < endIndex else {
+            return nil
+        }
+        
+        return self[index]
+    }
+}
+
 final class DayThreeTests: XCTestCase {
     
     func testFirstPart() {
@@ -67,5 +83,26 @@ final class DayThreeTests: XCTestCase {
     }
     
     func testSecondPart() {
+        let points = Points.make
+        
+        let parsed = Parser.parse(.content(day: "Three"), separator: "\n").dropLast()
+        let groupsOfThree = Array(parsed).chunked(into: 3)
+        
+        XCTAssertEqual(groupsOfThree.count, 100)
+        
+        var priorities = 0
+        
+        groupsOfThree.forEach { letters in
+
+            if let first = letters[safeIndex: 0], let second = letters[safeIndex: 1], let third = letters[safeIndex: 2] {
+                let output = Set(first.filter(second.contains).filter(third.contains))
+
+                if let value = points[String(output)] {
+                    priorities += value
+                } else { fatalError() }
+            } else { fatalError() }
+        }
+        
+        XCTAssertEqual(priorities, 2425)
     }
 }
