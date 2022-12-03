@@ -16,30 +16,36 @@ extension String {
     }
 }
 
-final class DayThreeTests: XCTestCase {
+typealias Points = [String: Int]
+
+extension Points {
     
-    func testFirstPart() {
+    static var make: Self {
         var points = [String: Int]()
         
-        let startChar = Unicode.Scalar("a").value
-        let endChar = Unicode.Scalar("z").value
+        points.from("a", to: "z")
+        points.from("A", to: "Z", addition: 26)
+        
+        assert(points.count == 52)
+        return points
+    }
+    
+    mutating func from(_ initial: String, to last: String, addition: Int = 0) {
+        let startChar = Unicode.Scalar(initial)!.value
+        let endChar = Unicode.Scalar(last)!.value
 
         (startChar...endChar).enumerated().forEach { tuple in
             if let char = Unicode.Scalar(tuple.1) {
-                points[String(char)] = tuple.0 + 1
+                self[String(char)] = tuple.0 + 1 + addition
             }
         }
-        
-        let startChar1 = Unicode.Scalar("A").value
-        let endChar1 = Unicode.Scalar("Z").value
+    }
+}
 
-        (startChar1...endChar1).enumerated().forEach { tuple in
-            if let char = Unicode.Scalar(tuple.1) {
-                points[String(char)] = tuple.0 + 1 + 26
-            }
-        }
-        
-        XCTAssertEqual(points.count, 52)
+final class DayThreeTests: XCTestCase {
+    
+    func testFirstPart() {
+        let points = Points.make
         
         let parsed = Parser.parse(.content(day: "Three"), separator: "\n").dropLast()
         
