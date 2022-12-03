@@ -4,7 +4,7 @@ import XCTest
 final class DayOneTests: XCTestCase {
     
     func testFirstPart() {
-        let elves = Parser.parse(.content)
+        let elves = Parser.parse(.content(day: "One"), separator: "\n\n")
         
         let result = elves.map { elf in
             elf.components(separatedBy: "\n").compactMap { Int($0) }.reduce(0, +)
@@ -14,7 +14,7 @@ final class DayOneTests: XCTestCase {
     }
     
     func testSecondPart() {
-        let elves = Parser.parse(.content)
+        let elves = Parser.parse(.content(day: "One"), separator: "\n\n")
         
         let result = elves.map { elf in
             elf.components(separatedBy: "\n").compactMap { Int($0) }.reduce(0, +)

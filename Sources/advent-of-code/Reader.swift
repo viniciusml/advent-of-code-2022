@@ -6,16 +6,19 @@ extension Bundle {
 
 extension String {
     
-    static var content: String {
-        let path = Bundle.aoc.path(forResource: "Day One", ofType: "txt", inDirectory: "Resources")
-        let string = try! String(contentsOfFile: path!, encoding: String.Encoding.utf8)
+    static func content(day: String) -> String {
+        guard let path = Bundle.aoc.path(forResource: "Day \(day)", ofType: "txt", inDirectory: "Resources") else {
+            return "no path"
+        }
+        
+        let string = try! String(contentsOfFile: path, encoding: String.Encoding.utf8)
         return string
     }
 }
 
 final class Parser {
     
-    static func parse(_ txt: String) -> [String] {
-        txt.components(separatedBy: "\n\n")
+    static func parse(_ txt: String, separator: String) -> [String] {
+        txt.components(separatedBy: separator)
     }
 }
