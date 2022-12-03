@@ -33,10 +33,6 @@ struct RPSParser {
             switch (playerOne, playerTwo) {
             case (.rock, .rock), (.paper, .paper), (.scissors, .scissors):
                 return playerOne.rawValue + draw
-            case (.paper, .paper):
-                return playerOne.rawValue + draw
-            case :
-                return playerOne.rawValue + draw
             case (.rock, .paper):
                 return playerOne.rawValue + lost
             case (.rock, .scissors):
