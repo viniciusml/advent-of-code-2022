@@ -19,6 +19,6 @@ extension String {
 final class Parser {
     
     static func parse(_ txt: String, separator: String) -> [String] {
-        txt.components(separatedBy: separator)
+        txt.components(separatedBy: separator).dropLast()
     }
 }

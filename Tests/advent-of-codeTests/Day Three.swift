@@ -63,7 +63,7 @@ final class DayThreeTests: XCTestCase {
     func testFirstPart() {
         let points = Points.make
         
-        let parsed = Parser.parse(.content(day: "Three"), separator: "\n").dropLast()
+        let parsed = Parser.parse(.content(day: "Three"), separator: "\n")
         
         var priorities = 0
         
@@ -85,7 +85,7 @@ final class DayThreeTests: XCTestCase {
     func testSecondPart() {
         let points = Points.make
         
-        let parsed = Parser.parse(.content(day: "Three"), separator: "\n").dropLast()
+        let parsed = Parser.parse(.content(day: "Three"), separator: "\n")
         let groupsOfThree = Array(parsed).chunked(into: 3)
         
         XCTAssertEqual(groupsOfThree.count, 100)

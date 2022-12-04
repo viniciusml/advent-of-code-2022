@@ -50,8 +50,7 @@ struct RPSParser {
     }
     
     static func parse(_ input: [String]) -> [Match] {
-        let copy = input.dropLast(1)
-        let result = copy.compactMap { eachPair in
+        let result = input.compactMap { eachPair in
             let pairWithOptionsPlayed = eachPair.components(separatedBy: " ")
             if let playerOne = pairWithOptionsPlayed.first, let playerTwo = pairWithOptionsPlayed.last {
                 return Match(playerOne: playerOne.toRPS, playerTwo: playerTwo.toRPS)
