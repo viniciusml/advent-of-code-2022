@@ -7,12 +7,6 @@ extension ClosedRange {
     }
 }
 
-extension Range {
-    func embraces(_ other: Self) -> Bool {
-        return other.clamped(to: self) == other
-    }
-}
-
 final class DayFourTests: XCTestCase {
     
     func testFirstPart() {
