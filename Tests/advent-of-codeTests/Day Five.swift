@@ -102,6 +102,6 @@ final class DayFiveTests: XCTestCase {
             topOfStacks.append(last!)
         }
         
-        XCTAssertEqual(topOfStacks, "SHMSDGZVC")
+        XCTAssertEqual(topOfStacks, "VRZGHDFBQ")
     }
 }
