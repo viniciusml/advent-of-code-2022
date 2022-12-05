@@ -61,10 +61,47 @@ final class DayFiveTests: XCTestCase {
             topOfStacks.append(last!)
         }
         
-        XCTAssertEqual(topOfStacks, "")
+        XCTAssertEqual(topOfStacks, "SHMSDGZVC")
     }
     
     func testSecondPart() {
         let parsed = Parser.parse(.content(day: "Five"), separator: "\n")
+        
+        let directions = parsed.map { $0.digits }
+        let directionsIntegers = directions.map { strings in
+            strings.compactMap { Int($0) }
+        }
+        let parsedDirections = directionsIntegers.map {
+            XCTAssertEqual($0.count, 3)
+            return Direction(quantity: $0[0], origin: $0[1], destination: $0[2])
+        }
+        
+        parsedDirections.forEach { direction in
+            var itemsToBeMoved = [String]()
+            
+            guard var originCopy = crates[direction.origin], var destinationCopy = crates[direction.destination] else {
+                fatalError()
+            }
+            
+            for _ in (1...direction.quantity) {
+                
+                if let last = originCopy.popLast() {
+                    itemsToBeMoved.append(last)
+                } else { fatalError() }
+            }
+            
+            crates[direction.origin] = originCopy
+            let reversed = itemsToBeMoved.reversed()
+            destinationCopy.append(contentsOf: reversed)
+            crates[direction.destination] = destinationCopy
+        }
+        
+        var topOfStacks = ""
+        for index in (1...9) {
+            let last = crates[index]?.last!
+            topOfStacks.append(last!)
+        }
+        
+        XCTAssertEqual(topOfStacks, "SHMSDGZVC")
     }
 }
